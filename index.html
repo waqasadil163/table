@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Table</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="form">
+        <form action="submit.php" method="POST">
+            <div>
+                <h1>Academic Details</h1>
+            </div>
+            <div class="flex">
+                <div class="input">
+                    <label for="name">Name</label>
+                    <input type="text" placeholder="Full Name" name="name" id="name" spellcheck="false">
+                </div>
+                <div class="input">
+                    <label for="phone">Phone</label>
+                    <input type="number" placeholder="Phone" name="phone" id="phone" spellcheck="false">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="input">
+                    <label for="cnic">CNIC</label>
+                    <input type="number" placeholder="CNIC without '-' dashes" name="cnic" id="cnic" spellcheck="false">
+                </div>
+                <div class="input">
+                    <label for="dob">DOB</label>
+                    <input type="date" placeholder="Date of Birth" name="dob" id="dob" spellcheck="false"
+                        style="color: #696969;">
+                </div>
+            </div>
+            <div class="flex">
+                <div class="input">
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Email" name="email" id="email" spellcheck="false">
+                </div>
+                <div class="input">
+                    <label for="program">Program</label>
+                    <select name="program" id="program">
+                        <option disabled selected>Select Degree Program</option>
+                        <option value="BS">BS</option>
+                        <option value="MS">MS</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="input">
+                    <label for="semester">Semester</label>
+                    <select name="semester" id="semester">
+                        <option disabled selected>Select Current Semester</option>
+                        <option value="1">1st Semester</option>
+                        <option value="2">2nd Semester</option>
+                        <option value="3">3rd Semester</option>
+                        <option value="4">4th Semester</option>
+                        <option value="5">5th Semester</option>
+                        <option value="6">6th Semester</option>
+                        <option value="7">7th Semester</option>
+                        <option value="8">8th Semester</option>
+                    </select>
+                </div>
+                <div class="input">
+                    <label for="cgpa">CGPA</label>
+                    <input type="text" placeholder="CGPA" name="cgpa" id="cgpa" spellcheck="false">
+                </div>
+            </div>
+            <div class="btn-cont">
+                <button class="btn" type="submit" name="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table">
+        <div class="aps">
+            <h1>Application Status</h1>
+            <div class="overflow">
+                <table>
+                    <thead>
+                        <th>Sno</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>CNIC</th>
+                        <th>Program</th>
+                        <th>Semester</th>
+                        <th>CGPA</th>
+                        <th>DOB</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Server
+                        $server = 'localhost';
+                        $username = 'root';
+                        $password = '';
+                        $database = 'database';
+                        $localhost = mysqli_connect($server, $username, $password, $database);
+                        // Selecting Database
+                        $sdb = mysqli_select_db($localhost, "database");
+                        $row = "SELECT * FROM `table` limit 10";
+                        $query = mysqli_query($localhost, $row);
+                        $num = mysqli_num_rows($query);
+                        if ($num > 0) {
+                            while ($r = mysqli_fetch_assoc($query)) {
+                                echo "<tr>
+                                    <td>" . $r['Sno'] . "</td>
+                                    <td>" . $r['Name'] . "</td>
+                                    <td>" . $r['Phone'] . "</td>
+                                    <td>" . $r['Email'] . "</td>
+                                    <td>" . $r['CNIC'] . "</td>
+                                    <td>" . $r['Program'] . "</td>
+                                    <td>" . $r['Semester'] . "</td>
+                                    <td>" . $r['CGPA'] . "</td>
+                                    <td>" . $r['DOB'] . "</td>
+                                    <td>" . $r['Status'] . "</td>
+                                </tr>";
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="btns">
+        <button class="P">P</button>
+        <button class="button btn2" id="1">1</button>
+        <button class="button btn3" id="2">2</button>
+        <button class="button btn4" id="3">3</button>
+        <div>......</div>
+        <button class="button btn5" id="10">10</button>
+        <button class="N">N</button>
+    </div>
+
+    <div id="notify">Your request has been successfully submitted.</div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
